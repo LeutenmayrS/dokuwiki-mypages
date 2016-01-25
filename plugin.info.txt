@@ -1,0 +1,7 @@
+base   mypages
+author Stefan Leutenmayr
+email  stefan.leutenmayr@freenet.de
+date   2016-01-08
+name   mypages plugin
+desc   Shows the pages a User has created or contributed
+url    http://www.dokuwiki.org
