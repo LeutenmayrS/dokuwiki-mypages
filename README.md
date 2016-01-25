@@ -1,1 +1,0 @@
-# dokuwiki-mypages
