@@ -15,5 +15,6 @@ $lang['created_pages'] = "Your created pages";
 $lang['contributed_pages'] = "You contributed to these pages";
 $lang['root_namespace'] = "root level";
 $lang['no_Results'] = "Sorry, no matches were found.";
+$lang['mypages_show_button'] = "My pages";
 
 //Setup VIM: ex: et ts=4 :

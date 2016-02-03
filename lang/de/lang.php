@@ -15,5 +15,6 @@ $lang['created_pages'] = "Erstellte Beiträge";
 $lang['contributed_pages'] = "Bearbeitete Beiträge";
 $lang['root_namespace'] = "Oberste Ebene";
 $lang['no_Results'] = "Leider wurden keine Beiträge gefunden.";
+$lang['mypages_show_button'] = "Meine Beiträge";
 
 //Setup VIM: ex: et ts=4 :

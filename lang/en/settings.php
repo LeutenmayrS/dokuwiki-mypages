@@ -12,5 +12,6 @@ $lang['show_last_update'] = "Show date and user of the last change:";
 $lang['namespace_limit'] = "Number of namespaces that will be shown as treeview:";
 $lang['stop_words']= "Ignore these pagenames, seperated by semicolon. (Case Sensitive):";
 $lang['group_last_level']= "Group the last level by namespace:";
+$lang['show_sitetool']= "Show a Button in the sitetools-area:";
 
 //Setup VIM: ex: et ts=4 :

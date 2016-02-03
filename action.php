@@ -19,7 +19,8 @@ class action_plugin_mypages extends DokuWiki_Action_Plugin {
      */
     public function register(Doku_Event_Handler $controller) {
 
-       $controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'allow_mypages_show');
+       $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'handle_template_sitetools_display');
+	   $controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'allow_mypages_show');
 	   $controller->register_hook('TPL_ACT_UNKNOWN', 'BEFORE',  $this, 'handle_mypages_show');
    
     }
@@ -60,6 +61,40 @@ class action_plugin_mypages extends DokuWiki_Action_Plugin {
 		print $helper->mypages_show();
 		
 	}
+	
+	
+	/**
+     * Add 'my pages'-button to sitetools
+     *
+     * @param Doku_Event $event
+     */
+    public function handle_template_sitetools_display(Doku_Event $event) {
+        global $ID, $REV, $INFO;
+		
+		if (isset ($INFO['userinfo'])) {
+			
+			if($this->getConf('show_sitetool')== 1) {
+			
+				$params = array('do' => 'mypages_show');
+				if($REV) {
+					$params['rev'] = $REV;
+				}
+
+				// insert button at first position
+				$event->data['items'] = 
+					array('mypages_show' =>
+							  '<li>'
+							  . '<a href="' . wl($ID, $params) . '"  class="action mypages" rel="nofollow" title="' . $this->getLang('mypages_show_button') . '">'
+							  . '<span>' . $this->getLang('mypages_show_button') . '</span>'
+							  . '</a>'
+							  . '</li>'
+					) + 
+					$event->data['items'];
+				
+				$event->data['view'] = 'main';
+			}
+		}
+    }
 	
 
 

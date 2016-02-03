@@ -9,5 +9,6 @@
 
 $meta['show_last_update'] = array('onoff');
 $meta['namespace_limit'] = array('numeric');
-$meta['stop_words']= array('string');group_last_level
+$meta['stop_words']= array('string');
 $meta['group_last_level']= array('onoff');
+$meta['show_sitetool']= array('onoff');
