@@ -34,9 +34,13 @@ class helper_plugin_mypages extends DokuWiki_Plugin {
      */
 	public function mypages_show() {
 		
+		global $ID;
 		global $INFO;
 		global $conf;
 		
+		//Remember the original ID for eventual use
+		//The ID will be changed to prepare for the html_wikilink function, which otherwise sets the current ID's namespace in Front of the page name.
+		$original_ID = $ID;
 				
         $pages = file($conf['indexdir'] . '/page.idx');
 		
@@ -49,6 +53,9 @@ class helper_plugin_mypages extends DokuWiki_Plugin {
 		
 		foreach ($pages as $id) {
 			
+			//There are 2 possible ways to ensure the current namespace will not be added in front of the id. Either set $ID on the current value or add a leading ":".
+			$ID = $id;
+			
 			if ( ! page_exists($id) || isHiddenPage($id)) {
 				unset($pages[$id]);
 				continue;
@@ -57,6 +64,7 @@ class helper_plugin_mypages extends DokuWiki_Plugin {
 			foreach ($stop_words as $idx => $name) {
 				
 				//Debug:
+				//$html .= "<span>" . html_wikilink($id) . "</span></br>";
 				//$html .= "<span>'" .noNS($id) . "' == '" . $name . "'? ". strcmp(noNS($id),$name.chr(10)) . "</span></br>";
 				
 				if (strcmp(noNS($id),$name.chr(10)) == 0) {
@@ -78,12 +86,14 @@ class helper_plugin_mypages extends DokuWiki_Plugin {
 				$contributors = $meta['contributor'];
 				foreach ($contributors as $contributor => $name){
 					If ($username == $name){
-						$results['created'][getNS($id)][$id]['link'] = html_wikilink($id);
-						$results['created'][getNS($id)][$id]['last_change'] = $meta['last_change'];
+						$results['contributed'][getNS($id)][$id]['link'] = html_wikilink($id);
+						$results['contributed'][getNS($id)][$id]['last_change'] = $meta['last_change'];
 					}
 				}
 			}
 		}
+		
+		$ID = $original_ID;
 		
 		//Print created pages
 		
@@ -282,7 +292,7 @@ class helper_plugin_mypages extends DokuWiki_Plugin {
      */
 	private function getNamespace($ns, $subNS) {
 		
-		$html = "<li>";
+		$html = "<li><span>";
 		
 		
 		if ($ns == '0') {
@@ -299,7 +309,7 @@ class helper_plugin_mypages extends DokuWiki_Plugin {
 			
 		}
 		
-		$html .= "</li>";
+		$html .= "</span></li>";
 		
 		return $html;
 	}
